@@ -1,0 +1,2 @@
+console:
+ DNSRegistry.deployed().then(function(instance){instance.set("ABC"); return instance.get.call();}).then(function(value){ return value.toString(); });
