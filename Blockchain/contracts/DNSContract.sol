@@ -1,36 +1,35 @@
 // SPDX-License-Identifier: MIT
-//pragma solidity >=0.4.22 <0.8.0;
-pragma solidity >=0.4.0 <0.7.0;
+pragma solidity ^0.4.21;
 
-contract DNS {
+contract DNSContract {
     struct Entry
     {
-	string ip;
-	string url;
-	uint dateOfCreation;
-	uint expireTimeAmount;
-	address creator;
+    	string ip;
+    	string url;
+    	uint dateOfCreation;
+    	uint expireTimeAmount;
+    	address creator;
     }
 
-    Entry entry;
+    Entry public entry;
 
-  function setAddress(string memory newAddress) private {
+  function setAddress(string newAddress) public {
      entry.ip = newAddress;
   }
 
-  function getAddress() public view returns (string memory) {
+  function getAddress() public view returns (string) {
     return entry.ip;
   }
 
-  function setURL(string memory newURL) private {
+  function setURL(string memory newURL) public {
      entry.url = newURL;
   }
 
-  function getURL() public view returns (string memory) {
+  function getURL() public view returns (string) {
     return entry.url;
   }
 
-  function setDateOfCreation(uint newDateOfCreation) private {
+  function setDateOfCreation(uint newDateOfCreation) public {
      entry.dateOfCreation = newDateOfCreation;
   }
 
@@ -38,7 +37,7 @@ contract DNS {
     return entry.dateOfCreation;
   }
 
-  function setExpireTimeAmount(uint newExpireTimeAmount) private {
+  function setExpireTimeAmount(uint newExpireTimeAmount) public {
      entry.expireTimeAmount = newExpireTimeAmount;
   }
 
@@ -46,7 +45,7 @@ contract DNS {
     return entry.expireTimeAmount;
   }
 
-  function setCreator(address newCreator) private {
+  function setCreator(address newCreator) public {
      entry.creator = newCreator;
   }
 
@@ -54,7 +53,7 @@ contract DNS {
     return entry.creator;
   }
 
-   constructor() public {
+   function constructor() public {
       setCreator(msg.sender);
       setDateOfCreation(now);
    }
