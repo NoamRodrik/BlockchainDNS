@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.4.21;
+pragma solidity >=0.4.26 <0.7.0;
 
 contract DNSContract {
     struct Entry
@@ -13,11 +13,11 @@ contract DNSContract {
 
     Entry public entry;
 
-  function setAddress(string newAddress) public {
+  function setAddress(string memory newAddress) public {
      entry.ip = newAddress;
   }
 
-  function getAddress() public view returns (string) {
+  function getAddress() public view returns (string memory) {
     return entry.ip;
   }
 
@@ -25,7 +25,7 @@ contract DNSContract {
      entry.url = newURL;
   }
 
-  function getURL() public view returns (string) {
+  function getURL() public view returns (string memory) {
     return entry.url;
   }
 
@@ -53,8 +53,10 @@ contract DNSContract {
     return entry.creator;
   }
 
-   function constructor() public {
+   constructor() public {
       setCreator(msg.sender);
       setDateOfCreation(now);
+      // One year to expire
+      setExpireTimeAmount(1);
    }
 }
