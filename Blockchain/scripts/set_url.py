@@ -5,7 +5,7 @@ import json
 contract_address   = "0x5054f6D117E71a374F4C2b5Cd8508fA578aF439D"
 wallet_private_key = "d5e56c6fbb9441cc7c3e996ed1c5d785d96b665482c7f34e08e11249ad2a36ce"
 wallet_address     = "0xBAb3632832DAdD4338dbB17227521b13FeD38c76"
-url = "http://127.0.0.1:7545"
+url = "http://192.168.56.102:7545"
 
 w3 = Web3(HTTPProvider(url))
 w3.eth.defaultAccount = w3.eth.accounts[0]
