@@ -4,9 +4,9 @@ import json
 import sys
 import datetime
 
-contract_address     = "0x440bf216C419A1EEA047250bb4885A1ceFEb9FC3"
-wallet_private_key   = "f3580b39cfcafbcdad850f1c092e8729b40ad07ed771ff180dccafaee7851e82"
-wallet_address       = "0xCfB75984d2003DF710530b6cA94247cbe34c303D"
+contract_address     = "0x5054f6D117E71a374F4C2b5Cd8508fA578aF439D"
+wallet_private_key   = "d5e56c6fbb9441cc7c3e996ed1c5d785d96b665482c7f34e08e11249ad2a36ce"
+wallet_address       = "0xBAb3632832DAdD4338dbB17227521b13FeD38c76"
 url = "http://127.0.0.1:7545"
 
 w3 = Web3(HTTPProvider(url))
