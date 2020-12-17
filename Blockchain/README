@@ -1,7 +1,7 @@
-console:
-DNS.deployed().then(function(instance){instance.set("ABC"); return instance.get.call();}).then(function(value){ return value.toString(); });
-
-install web3 in python
+install web3 in python3
 
 Setup MetaMask, Ganache, and Truffle with this tutorial:
 https://medium.com/@adamh90/creating-a-local-test-environment-for-ethereum-smart-contracts-1f638efca020
+
+Interact with the ledger from the host pc, but turn on the ledger backend on the vm,
+there's a bridge between the host and the vm.
