@@ -1,9 +1,9 @@
 """DNSUDPServer.py
 
-This script sets up a DNS server - it recieves requests in port 53,
+This script sets up a DNS server - it receives requests in port 53,
 decodes them, asks the blockchain for answers, and sends replies.
 
-TODO: Add API to blockchain, test if handles all types of requests and questions f.e A, AAAA reversed, other dns logics etc.
+TODO: Add API to blockchain, test if handles all types of requests and questions f.e A, AAAA reversed, other DNS logic etc.
 TODO: Handle exceptions such as no connection to blockchain, address not found(send no-existent domain)
 """
 
@@ -16,12 +16,12 @@ IP = "127.0.0.1"
 # DNS server port.
 PORT = 53
 
-# Packet buffer size. buffer size 512 as mentioned in DNS RFC.
+# Packet buffer size. Buffer size 512 as mentioned in DNS RFC.
 BUFFER_SIZE = 512
 
 def lookup_name(name):
     """
-    Recives a name, looks it up in the blockchain,
+    Receives a name, looks it up in the blockchain,
     returns corresponding address if found.
     """
     
@@ -37,11 +37,11 @@ def main():
 
     while True:
 
-        # Recives data (DNS request) and address from a client. buffer size 512 as mentioned in DNS RFC.
+        # Receives data (DNS request) and address from a client. buffer size 512 as mentioned in DNS RFC.
         data, addr = sock.recvfrom(BUFFER_SIZE)
 
-        # Informs in the console about a request recived.
-        print ('Recieved request from {0} at port {1}.'.format(addr[0], addr[1]))
+        # Informs in the console about a request received.
+        print ('Received request from {0} at port {1}.'.format(addr[0], addr[1]))
 
         try:
             
