@@ -2,10 +2,10 @@ import time
 from web3 import Web3, HTTPProvider
 import json
 
-contract_address   = "0x5054f6D117E71a374F4C2b5Cd8508fA578aF439D"
-wallet_private_key = "d5e56c6fbb9441cc7c3e996ed1c5d785d96b665482c7f34e08e11249ad2a36ce"
-wallet_address     = "0xBAb3632832DAdD4338dbB17227521b13FeD38c76"
-url = "http://192.168.56.102:7545"
+contract_address     = "0x7E9B3758D7FE3699449d0029A55483A77eE1efcf"
+wallet_private_key   = "bf15adc8c2b23e09b0ce81ea09495b2ea40864627133ab0f736e8009d3088121"
+wallet_address       = "0xA33AfE1FC2FFbE5c41a0f6c52548c2B71391cD52"
+url = "http://10.10.248.102:7545"
 
 w3 = Web3(HTTPProvider(url))
 w3.eth.defaultAccount = w3.eth.accounts[0]
