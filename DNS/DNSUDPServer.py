@@ -11,7 +11,7 @@ import socket
 import dnslib
 
 # DNS server interface IP.
-IP = "127.0.0.1"
+IP = "10.10.248.102"
 
 # DNS server port.
 PORT = 53
@@ -19,13 +19,15 @@ PORT = 53
 # Packet buffer size. Buffer size 512 as mentioned in DNS RFC.
 BUFFER_SIZE = 512
 
-def lookup_name(name):
+def lookup(record_name, record_type):
     """
-    Receives a name, looks it up in the blockchain,
-    returns corresponding address if found.
+    Receives a record name (name or IP), record type (A, AAAA, etc.),
+    looks it up in the blockchain database, returns the corresponding address if found.
     """
-    
-    return("1.2.3.4")
+    if record_type == 'A':
+        return(["104.26.8.9", "104.26.9.9"])
+    else:
+        return([])
 
 def main():
 
@@ -38,6 +40,7 @@ def main():
     while True:
 
         try:
+
             # Receives data (DNS request) and address from a client. buffer size 512 as mentioned in DNS RFC.
             data, addr = sock.recvfrom(BUFFER_SIZE)
         except:
@@ -64,9 +67,34 @@ def main():
                 # Gets the name queried in the question.
                 q_name = question.get_qname()
 
-                # Generates a reply to the client.
-                dns_rep = dnslib.DNSRecord(dnslib.DNSHeader(id=dns_req.header.id,qr=1,aa=1,ra=1),q=dnslib.DNSQuestion(q_name),a=dnslib.RR(q_name,rdata=dnslib.A(lookup_name(q_name))))
-                
+                # If the query type is PTR (reverse query).
+                if dnslib.QTYPE.get(question.qtype) == 'PTR':
+                    pass
+
+                # If the query type is A (IPv4).
+                if dnslib.QTYPE.get(question.qtype) == 'A':
+
+                    # Generates reply.
+                    dns_rep = dnslib.DNSRecord(dnslib.DNSHeader(id=dns_req.header.id,qr=1,aa=1,ra=1),q=dnslib.DNSQuestion(q_name,dnslib.QTYPE.A))
+
+                    # Looks up answers, operates on each one if there are any.
+                    for answer in lookup(q_name, 'A'):
+
+                        # Adds the answer to the reply.
+                        dns_rep.add_answer(dnslib.RR(q_name,dnslib.QTYPE.A,rdata=dnslib.A(answer)))
+
+                # If the query type is AAAA (IPv6).
+                if dnslib.QTYPE.get(question.qtype) == 'AAAA':
+
+                    # Generates reply.
+                    dns_rep = dnslib.DNSRecord(dnslib.DNSHeader(id=dns_req.header.id,qr=1,aa=1,ra=1),q=dnslib.DNSQuestion(q_name,dnslib.QTYPE.AAAA))
+
+                    # Looks up answers, operates on each one if there are any.
+                    for answer in lookup(q_name, 'AAAA'):
+
+                        # Adds the answer to the reply.
+                        dns_rep.add_answer(dnslib.RR(q_name,dnslib.QTYPE.AAAA,rdata=dnslib.AAAA(answer)))
+
                 try:
                 
                     # Sends the reply generated to the client.
