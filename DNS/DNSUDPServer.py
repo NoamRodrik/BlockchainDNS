@@ -37,8 +37,11 @@ def main():
 
     while True:
 
-        # Receives data (DNS request) and address from a client. buffer size 512 as mentioned in DNS RFC.
-        data, addr = sock.recvfrom(BUFFER_SIZE)
+        try:
+            # Receives data (DNS request) and address from a client. buffer size 512 as mentioned in DNS RFC.
+            data, addr = sock.recvfrom(BUFFER_SIZE)
+        except:
+            continue
 
         # Informs in the console about a request received.
         print ('Received request from {0} at port {1}.'.format(addr[0], addr[1]))
