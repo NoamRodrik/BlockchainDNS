@@ -25,7 +25,7 @@ def lookup(record_name, record_type):
     Receives a record name (name or IP), record type (A, AAAA, etc.),
     looks it up in the blockchain database, returns the corresponding address if found.
     """
-
+    
     # Hardcoded answers for the sake of the POC!!!
     if record_type == 'A':
         if record_name == 'he.wikipedia.org':
@@ -33,6 +33,9 @@ def lookup(record_name, record_type):
 
         elif record_name == 'www.google.com':
             return(["172.217.169.4"])
+
+        elif record_name == 'github.com':
+            return(["140.82.121.4"])
 
         else:
             return([])
