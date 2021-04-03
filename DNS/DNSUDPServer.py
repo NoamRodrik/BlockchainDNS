@@ -1,10 +1,11 @@
-"""DNSUDPServer.py
+"""
+DNSUDPServer.py
 
 This script sets up a DNS server - it receives requests in port 53,
 decodes them, asks the blockchain for answers, and sends replies.
 
 TODO: Add API to blockchain, test if handles all types of requests and questions f.e A, AAAA reversed, other DNS logic etc.
-TODO: Handle exceptions such as no connection to blockchain, address not found(send no-existent domain)
+TODO: Handle exceptions such as no connection to blockchain.
 """
 
 import socket
@@ -24,8 +25,17 @@ def lookup(record_name, record_type):
     Receives a record name (name or IP), record type (A, AAAA, etc.),
     looks it up in the blockchain database, returns the corresponding address if found.
     """
+
+    # Hardcoded answers for the sake of the POC!!!
     if record_type == 'A':
-        return(["104.26.8.9", "104.26.9.9"])
+        if record_name == 'he.wikipedia.org':
+            return(["91.198.174.192"])
+
+        elif record_name == 'www.google.com':
+            return(["172.217.169.4"])
+
+        else:
+            return([])
     else:
         return([])
 
