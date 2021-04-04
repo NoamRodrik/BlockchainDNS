@@ -1,4 +1,5 @@
 """
+
 DNSUDPServer.py
 
 This script sets up a DNS server - it receives requests in port 53,
@@ -10,6 +11,10 @@ TODO: Handle exceptions such as no connection to blockchain.
 
 import socket
 import dnslib
+from blockchainDns import BlockchainDns
+
+# DNS Blockchain helper.
+blockchainDnsHelper = BlockchainDns()
 
 # DNS server interface IP.
 IP = "10.10.248.102"
@@ -28,21 +33,18 @@ def lookup(record_name, record_type):
     
     # Hardcoded answers for the sake of the POC!!!
     if record_type == 'A':
-        if record_name == 'he.wikipedia.org':
-            return(["91.198.174.192"])
+        try:
+            return([blockchainDnsHelper.getDomainAddress(record_name)])
 
-        elif record_name == 'www.google.com':
-            return(["172.217.169.4"])
-
-        elif record_name == 'github.com':
-            return(["140.82.121.4"])
-
-        else:
+        except:
             return([])
+
     else:
         return([])
 
 def main():
+
+    
 
     # Creates internet UDP socket.
     sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
@@ -78,7 +80,7 @@ def main():
             for question in dns_req.questions:
 
                 # Gets the name queried in the question.
-                q_name = question.get_qname()
+                q_name = str(question.get_qname()).rstrip('.')
 
                 # If the query type is PTR (reverse query).
                 if dnslib.QTYPE.get(question.qtype) == 'PTR':
